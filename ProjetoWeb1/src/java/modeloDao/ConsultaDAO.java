@@ -22,7 +22,7 @@ public class ConsultaDAO {
         
         try {
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select * from turma");
+            rs = stmt.executeQuery("select cod_turma,horario,t.cod_disc,nome_disc,carga_horaria from turma as t inner join disciplina as d on t.cod_disc = d.cod_disc");
             
             while(rs.next()){
                 Turma turma = new Turma();
@@ -33,6 +33,7 @@ public class ConsultaDAO {
                 turma.setCarga_horaria(rs.getString("carga_horaria"));
                 turmas.add(turma);
             }
+            return turmas;
         } catch (SQLException ex) {
             System.out.println("Erro em turma" +ex);
         } finally{

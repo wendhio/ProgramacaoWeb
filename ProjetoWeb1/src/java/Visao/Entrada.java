@@ -5,13 +5,18 @@
  */
 package Visao;
 
+import controlador.ConnectionFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Turma;
+import modeloDao.ConsultaDAO;
 
 /**
  *
@@ -32,15 +37,40 @@ public class Entrada extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        ConsultaDAO dao = new ConsultaDAO();
+        String mat = request.getParameter("matricula");
+        ArrayList<Turma> turma = dao.buscaTurma();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+          //  System.out.println(turma.get(1).getHorario());
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Entrada</title>");            
+            out.println("<title>Servlet Entrada</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Entrada at " + request.getContextPath() + "</h1>");
+            out.println("<form>\n"
+                    + "		<table>\n"
+                    + "			<tr>\n"
+                    + "				<td>Codigo da disciplina</td>\n"
+                    + "	 			<td>Nome da disciplina</td>	\n"
+                    + "				<td>Carga horária semanal</td>\n"
+                    + "				<td>Código da turma</td>\n"
+                    + "				<td>Horários da turma</td>\n"
+                    + "			</tr>\n"
+                    + "		</table>	\n"
+                    + "	</form>");
+            
+            for(int i=0; i < turma.size(); i++){
+                out.println("<tr><td>"+turma.get(i).getCod_disc()+"</td>\n"
+                    + "     <td>"+turma.get(i).getNome_disc()+"</td>	\n"
+                    + "	<td>"+turma.get(i).getCarga_horaria()+"</td>\n"
+                    + "	<td>"+turma.get(i).getCod_turma()+"</td>\n"
+                    + "	<td>"+turma.get(i).getHorario()+"</td></tr>\n");
+            }
+                    
+		
             out.println("</body>");
             out.println("</html>");
         }
