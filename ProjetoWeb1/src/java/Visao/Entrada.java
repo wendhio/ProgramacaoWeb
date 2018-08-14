@@ -37,9 +37,10 @@ public class Entrada extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         ConsultaDAO dao = new ConsultaDAO();
         String mat = request.getParameter("matricula");
+        String flag = dao.BuscaMatricula(mat);
         ArrayList<Turma> turma = dao.buscaTurma();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -50,27 +51,35 @@ public class Entrada extends HttpServlet {
             out.println("<title>Servlet Entrada</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<form>\n"
-                    + "		<table>\n"
-                    + "			<tr>\n"
-                    + "				<td>Codigo da disciplina</td>\n"
-                    + "	 			<td>Nome da disciplina</td>	\n"
-                    + "				<td>Carga horária semanal</td>\n"
-                    + "				<td>Código da turma</td>\n"
-                    + "				<td>Horários da turma</td>\n"
-                    + "			</tr>\n"
-                    + "		</table>	\n"
-                    + "	</form>");
-            
-            for(int i=0; i < turma.size(); i++){
-                out.println("<tr><td>"+turma.get(i).getCod_disc()+"</td>\n"
-                    + "     <td>"+turma.get(i).getNome_disc()+"</td>	\n"
-                    + "	<td>"+turma.get(i).getCarga_horaria()+"</td>\n"
-                    + "	<td>"+turma.get(i).getCod_turma()+"</td>\n"
-                    + "	<td>"+turma.get(i).getHorario()+"</td></tr>\n");
+            if( flag == null){
+                out.println("Matricula não encontrado!");
+            }else{
+            out.println("<form action=\"Servelet1\">\n"
+                    + "	<table border = 1>\n"
+                    + "     <tr>\n"
+                    + "         <th>Codigo da disciplina</th>\n"
+                    + "	 	<th>Nome da disciplina</th>	\n"
+                    + "		<th>Carga horária semanal</th>\n"
+                    + "		<th>Código da turma</th>\n"
+                    + "		<th>Horários da turma</th>\n"
+                    +"          <th>Selecionar</th> "
+                    + "     </tr>\n");                
+            for (int i = 0; i < turma.size(); i++) {
+                out.println("<tr><td>" + turma.get(i).getCod_disc() + "</td>\n"
+                        + "     <td>" + turma.get(i).getNome_disc() + "</td>	\n"
+                        + "	<td>" + turma.get(i).getCarga_horaria() + "</td>\n"
+                        + "	<td>" + turma.get(i).getCod_turma() + "</td>\n"
+                        + "	<td>" + turma.get(i).getHorario() + "</td>\n"
+                        + "     <td><input type=\"checkbox\" name=\"turmas\" value="+turma.get(i).getCod_turma() +">"
+                            + "</tr>\n");
             }
+            out.println("</table>\n"
+                +"<button id=\"botao\" type=\"submit\">Matricular</button>\n"
+                +"<input type=\"hidden\" name=\"matricula2\" value="+mat+" />\n"     
+                + "</form>");
+            
                     
-		
+            }
             out.println("</body>");
             out.println("</html>");
         }

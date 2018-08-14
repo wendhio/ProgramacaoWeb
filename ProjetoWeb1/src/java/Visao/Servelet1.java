@@ -9,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Aluno;
+import modelo.Turma;
+import modeloDao.ConsultaDAO;
 
 @WebServlet(name = "Servelet1", urlPatterns = {"/Servelet1"})
 public class Servelet1 extends HttpServlet {
@@ -26,10 +29,11 @@ public class Servelet1 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String [] turmas = request.getParameterValues("turmas");
-        Connection con = null;
+        ConsultaDAO dao = new ConsultaDAO();
+        String aluno = request.getParameter("matricula2");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            con = ConnectionFactory.getConnection();
+            
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -38,7 +42,41 @@ public class Servelet1 extends HttpServlet {
             out.println("<title>Solicitação de Matricula</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Servelet1 at " + request.getContextPath() + "</h1>");
+            out.println( "<table border = 1>\n"
+                    + "     <tr>\n"
+                    + "         <th>Codigo da disciplina</th>\n"
+                    + "	 	<th>Nome da disciplina</th>	\n"
+                    + "		<th>Carga horária semanal</th>\n"
+                    + "		<th>Código da turma</th>\n"
+                    + "		<th>Horários da turma</th>\n"
+                    + "     </tr>\n");                
+            for (int i = 0; i < turmas.length; i++) {
+                Turma turma = dao.selecionaTurma(turmas[i]);
+                System.out.println(turmas[i]);
+                out.println("<tr><td>" + turma.getCod_disc() + "</td>\n"
+                        + "     <td>" + turma.getNome_disc() + "</td>	\n"
+                        + "	<td>" + turma.getCarga_horaria() + "</td>\n"
+                        + "	<td>" + turma.getCod_turma() + "</td>\n"
+                        + "	<td>" + turma.getHorario() + "</td>\n"           
+                        + "</tr>\n");
+            }
+            out.println("</table>");
+                out.println("<table border = 1>\n"
+                    + "     <tr>\n"
+                    + "         <th>Matricula</th>\n"
+                    + "	 	<th>Nome da Aluno</th>	\n"
+                    + "		<th>Curso</th>\n"
+                    +"</tr>\n");
+                Aluno alunos = dao.getAluno(aluno);
+                out.println("<tr><td>" + alunos.getMat_aluno()+ "</td>\n"
+                        + "     <td>" + alunos.getNome_aluno()+ "</td>	\n"
+                        + "	<td>" + alunos.getNome_curso()+ "</td>\n"
+                        
+                        
+                        + "</tr>\n"
+                );
+            
+            out.println("</table>");
             out.println("</body>");
             out.println("</html>");
         }
