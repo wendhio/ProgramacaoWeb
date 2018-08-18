@@ -1,4 +1,42 @@
 body{
-    background-color: rgba(0,0,255, 1);
+    margin: 0;
+    background: #8A2387;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F27121, #E94057, #8A2387);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F27121, #E94057, #8A2387); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     text-align: center;
+}
+
+input{
+    border-radius: 12px;
+    height: 30px;
+    width: 40%;
+    margin-bottom: 15px;
+    padding: 4px 4px;
+}
+
+#bt1{
+    margin-right: 2%;
+    border-radius: 12px;
+    padding: 4px 4px;
+    width: 100px;
+    height: 30px;
+    border: none;
+}
+
+#bt2{
+    margin-left: 2%;
+    border-radius: 12px;
+    padding: 4px 4px;
+    width: 100px;
+    height: 30px;
+    border: none;
+
+}
+
+button:hover{
+    background: rgba(204,204,204, 0.7);
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
 }

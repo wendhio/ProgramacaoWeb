@@ -52,7 +52,7 @@ public class ConsultaDAO {
         } catch (SQLException ex) {
             System.out.println("Erro em busca turma" +ex);
         } finally{
-            ConnectionFactory.closeConnection(con, stmt, rs);
+            //ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return turmas;
     }
@@ -100,7 +100,7 @@ public class ConsultaDAO {
         } catch (SQLException ex) {
             System.out.println("Erro aluno!" +ex);
         }finally{
-            ConnectionFactory.closeConnection(con, stmt, rs);
+          //  ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return aluno;
     }

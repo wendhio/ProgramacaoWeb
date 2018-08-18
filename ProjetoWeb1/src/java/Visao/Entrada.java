@@ -1,14 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @Autor: Wendhio Thalison Neres dos Santos
+ * @Matricula: 201600017249
+ * @Turma: T02 - Programação para Web
  */
 package Visao;
 
-import controlador.ConnectionFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Turma;
+import modelo.Aluno;
 import modeloDao.ConsultaDAO;
-
 /**
  *
- * @author wendh
+ * @author wendhio
  */
 @WebServlet(name = "Entrada", urlPatterns = {"/Entrada"})
 public class Entrada extends HttpServlet {
@@ -41,7 +39,9 @@ public class Entrada extends HttpServlet {
         ConsultaDAO dao = new ConsultaDAO();
         String mat = request.getParameter("matricula");
         String flag = dao.BuscaMatricula(mat);
+        //Aluno aluno = dao.getAluno(mat);
         ArrayList<Turma> turma = dao.buscaTurma();
+        Aluno aluno = dao.getAluno(mat);
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
           //  System.out.println(turma.get(1).getHorario());
@@ -49,12 +49,21 @@ public class Entrada extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet Entrada</title>");
+            out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"entrada.css\">");
+            out.println("<script src=\"erro.js\"></script>")
             out.println("</head>");
             out.println("<body>");
             if( flag == null){
-                out.println("Matricula não encontrado!");
+                out.println("<script>alert(\"Matrícula errada porra!\");</script>");
+                out.println("<button id ='btn' onClick=\"history.go(-1)\">TENTAR NOVAMENTE</button>");
+                
             }else{
-            out.println("<form action=\"Servelet1\">\n"
+                
+                
+               
+            out.println("<div class = 'container'>");
+            out.println("<form action=\"Servelet1\" class = 'forme'>\n"
+                    + "<div class = 'nome'> Bem-Vindo,"+aluno.getNome_aluno()+"</div>"
                     + "	<table border = 1>\n"
                     + "     <tr>\n"
                     + "         <th>Codigo da disciplina</th>\n"
@@ -66,26 +75,25 @@ public class Entrada extends HttpServlet {
                     + "     </tr>\n");                
             for (int i = 0; i < turma.size(); i++) {
                 out.println("<tr><td>" + turma.get(i).getCod_disc() + "</td>\n"
-                        + "     <td>" + turma.get(i).getNome_disc() + "</td>	\n"
-                        + "	<td>" + turma.get(i).getCarga_horaria() + "</td>\n"
-                        + "	<td>" + turma.get(i).getCod_turma() + "</td>\n"
-                        + "	<td>" + turma.get(i).getHorario() + "</td>\n"
-                        + "     <td><input type=\"checkbox\" name=\"turmas\" value="+turma.get(i).getCod_turma() +">"
-                            + "</tr>\n");
+                        + "<td>" + turma.get(i).getNome_disc() + "</td>	\n"
+                        + "<td>" + turma.get(i).getCarga_horaria() + "</td>\n"
+                        + "<td>" + turma.get(i).getCod_turma() + "</td>\n"
+                        + "<td>" + turma.get(i).getHorario() + "</td>\n"
+                        + "<td><input type=\"checkbox\" name=\"turmas\" value="
+                        + turma.get(i).getCod_turma() +">"
+                        + "</tr>\n");
             }
             out.println("</table>\n"
                 +"<button id=\"botao\" type=\"submit\">Matricular</button>\n"
                 +"<input type=\"hidden\" name=\"matricula2\" value="+mat+" />\n"     
-                + "</form>");
-            
-                    
+                + "</form></div>");         
             }
             out.println("</body>");
             out.println("</html>");
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. 
+    //Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -99,7 +107,6 @@ public class Entrada extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -113,7 +120,6 @@ public class Entrada extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Returns a short description of the servlet.
      *
@@ -123,5 +129,4 @@ public class Entrada extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

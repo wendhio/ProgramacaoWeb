@@ -1,9 +1,7 @@
 package Visao;
 
-import controlador.ConnectionFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +13,6 @@ import modeloDao.ConsultaDAO;
 
 @WebServlet(name = "Servelet1", urlPatterns = {"/Servelet1"})
 public class Servelet1 extends HttpServlet {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,23 +30,40 @@ public class Servelet1 extends HttpServlet {
         String aluno = request.getParameter("matricula2");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<meta charset='UTF-8'/>");
             out.println("<head>");
-            out.println("<title>Solicitação de Matricula</title>");            
+            out.println("<title>Solicitação de Matricula</title>"); 
+            out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"entrada.css\">");
             out.println("</head>");
             out.println("<body>");
-            out.println( "<table border = 1>\n"
+            out.println("<div class = 'container'><form class = 'forme'>");
+                out.println("<table class = 'tabela2'>\n"
+                        + "<caption class = 'nome'>DADOS DO ALUNO</caption>"
                     + "     <tr>\n"
-                    + "         <th>Codigo da disciplina</th>\n"
-                    + "	 	<th>Nome da disciplina</th>	\n"
-                    + "		<th>Carga horária semanal</th>\n"
-                    + "		<th>Código da turma</th>\n"
-                    + "		<th>Horários da turma</th>\n"
-                    + "     </tr>\n");                
+                    + "         <th>Matricula</th>\n"
+                    + "	 	<th>Nome da Aluno</th>	\n"
+                    + "		<th>Curso</th>\n" 
+                    +"</tr>\n");
+                Aluno alunos = dao.getAluno(aluno);
+                out.println("<tr><td>" + alunos.getMat_aluno()+ "</td>\n"
+                        + "     <td>" + alunos.getNome_aluno()+ "</td>	\n"
+                        + "	<td>" + alunos.getNome_curso()+ "</td>\n"
+                        
+                        
+                        + "</tr>\n"
+                );
+            out.println("</table>");
+            out.println( "<table>\n"
+                    + "<caption class = 'nome'>TURMAS SELECIONADAS</caption>"
+                    + " <tr>\n"
+                    + " <th>Codigo da disciplina</th>\n"
+                    + " <th>Nome da disciplina</th>	\n"
+                    + " <th>Carga horária semanal</th>\n"
+                    + "	<th>Código da turma</th>\n"
+                    + "	<th>Horários da turma</th>\n"
+                    + " </tr>\n");                
             for (int i = 0; i < turmas.length; i++) {
                 Turma turma = dao.selecionaTurma(turmas[i]);
                 System.out.println(turmas[i]);
@@ -61,28 +75,12 @@ public class Servelet1 extends HttpServlet {
                         + "</tr>\n");
             }
             out.println("</table>");
-                out.println("<table border = 1>\n"
-                    + "     <tr>\n"
-                    + "         <th>Matricula</th>\n"
-                    + "	 	<th>Nome da Aluno</th>	\n"
-                    + "		<th>Curso</th>\n"
-                    +"</tr>\n");
-                Aluno alunos = dao.getAluno(aluno);
-                out.println("<tr><td>" + alunos.getMat_aluno()+ "</td>\n"
-                        + "     <td>" + alunos.getNome_aluno()+ "</td>	\n"
-                        + "	<td>" + alunos.getNome_curso()+ "</td>\n"
-                        
-                        
-                        + "</tr>\n"
-                );
-            
-            out.println("</table>");
+            out.println("</form></div>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
