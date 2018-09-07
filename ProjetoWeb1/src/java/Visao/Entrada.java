@@ -50,17 +50,13 @@ public class Entrada extends HttpServlet {
             out.println("<head>");
             out.println("<title>Servlet Entrada</title>");
             out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"entrada.css\">");
-            out.println("<script src=\"erro.js\"></script>")
             out.println("</head>");
             out.println("<body>");
             if( flag == null){
-                out.println("<script>alert(\"Matrícula errada porra!\");</script>");
-                out.println("<button id ='btn' onClick=\"history.go(-1)\">TENTAR NOVAMENTE</button>");
-                
+                out.println("<script>window.alert(\"Matrícula Errada. Tente Novamente!\");"
+                        + "location.href = 'http://localhost:8080/ProjetoWeb1/'"
+                        + "</script>");
             }else{
-                
-                
-               
             out.println("<div class = 'container'>");
             out.println("<form action=\"Servelet1\" class = 'forme'>\n"
                     + "<div class = 'nome'> Bem-Vindo,"+aluno.getNome_aluno()+"</div>"
