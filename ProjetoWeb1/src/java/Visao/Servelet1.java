@@ -35,11 +35,11 @@ public class Servelet1 extends HttpServlet {
             out.println("<meta charset='UTF-8'/>");
             out.println("<head>");
             out.println("<title>Solicitação de Matricula</title>"); 
-            out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"entrada.css\">");
+            out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"servelet1.css\">");
             out.println("</head>");
             out.println("<body>");
             out.println("<div class = 'container'><form class = 'forme'>");
-                out.println("<table class = 'tabela2'>\n"
+                out.println("<table class = 'tabela1'>\n"
                         + "<caption class = 'nome'>DADOS DO ALUNO</caption>"
                     + "     <tr>\n"
                     + "         <th>Matricula</th>\n"
@@ -55,7 +55,7 @@ public class Servelet1 extends HttpServlet {
                         + "</tr>\n"
                 );
             out.println("</table>");
-            out.println( "<table>\n"
+            out.println( "<table class='tabela2'>\n"
                     + "<caption class = 'nome'>TURMAS SELECIONADAS</caption>"
                     + " <tr>\n"
                     + " <th>Codigo da disciplina</th>\n"
@@ -71,7 +71,7 @@ public class Servelet1 extends HttpServlet {
                         + "     <td>" + turma.getNome_disc() + "</td>	\n"
                         + "	<td>" + turma.getCarga_horaria() + "</td>\n"
                         + "	<td>" + turma.getCod_turma() + "</td>\n"
-                        + "	<td>" + turma.getHorario() + "</td>\n"           
+                        + "	<td>" + turma.formatHorario() + "</td>\n"           
                         + "</tr>\n");
             }
             out.println("</table>");

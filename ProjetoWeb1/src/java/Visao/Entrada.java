@@ -74,7 +74,7 @@ public class Entrada extends HttpServlet {
                         + "<td>" + turma.get(i).getNome_disc() + "</td>	\n"
                         + "<td>" + turma.get(i).getCarga_horaria() + "</td>\n"
                         + "<td>" + turma.get(i).getCod_turma() + "</td>\n"
-                        + "<td>" + turma.get(i).getHorario() + "</td>\n"
+                        + "<td>" + turma.get(i).formatHorario() + "</td>\n"
                         + "<td><input type=\"checkbox\" name=\"turmas\" value="
                         + turma.get(i).getCod_turma() +">"
                         + "</tr>\n");

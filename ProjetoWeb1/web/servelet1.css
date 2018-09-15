@@ -1,13 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 17/08/2018, 20:19:08
-    Author     : wendhio
-*/
-
 body{
     background: #8A2387;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #F27121, #E94057, #8A2387);  /* Chrome 10-25, Safari 5.1-6 */
@@ -23,14 +13,27 @@ body{
 
 .forme{
     margin: 0 auto;
-    width: 80%;
+    width: 88%;
     text-align: center;
 }
 
-.tabela{
+.tabela1{
     border: 1px solid #fff;
     border-radius: 5px;
     margin-top: 10vh;
+    padding: 2px;
+    width: 90%;
+    margin-left: 80px;
+}
+
+.tabela2{
+    border: 1px solid #fff;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 2px;
+    width: 90%;
+    margin-left: 80px;
+
 }
 
 .cabeca tr td{
@@ -82,12 +85,6 @@ td{
     border-radius: 12px;
     margin-bottom: 10px;
     font-weight: bold;
-}
-
-.tabela2{
-    margin-top: 10px;
-    padding: 2px;
-    width: 100%;
 }
 
 #btn{
